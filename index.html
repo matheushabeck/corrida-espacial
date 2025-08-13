@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corrida Espacial - 1957-1975</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+       
+        <div class="stars" id="stars"></div>
+
+        <header class="header">
+            <div class="score-section">
+                <div class="score-item">
+                    <span class="star-icon">⭐</span>
+                    <span id="score">0 pontos</span>
+                </div>
+                <div class="score-item">
+                    <span class="trophy-icon">🏆</span>
+                    <span id="achievements">0 conquistas</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">1957 - 1975</div>
+                <h1 class="hero-title">
+                    <span class="title-red">CORRIDA</span>
+                    <span class="title-blue">ESPACIAL</span>
+                </h1>
+                <p class="hero-description">
+                    Descubra como a rivalidade entre EUA e URSS levou a humanidade às estrelas
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">18</div>
+                        <div class="stat-label">Anos de Competição</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Marcos Históricos</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Superpotências</div>
+                    </div>
+                </div>
+
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="scrollToVideo()">🚀 Começar Jornada</button>
+                    <button class="btn-secondary" onclick="scrollToTimeline()">📅 Ver Linha do Tempo</button>
+                </div>
+
+                <div class="scroll-indicator">
+                    <div class="scroll-text">Role para descobrir</div>
+                    <div class="scroll-arrow">↓</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="video-section" id="video-section">
+            <div class="section-content">
+                <div class="section-header">
+                    <h2 class="section-title">Assista ao Vídeo</h2>
+                    <p class="section-description">
+                        Entenda o contexto histórico da Guerra Fria e como ela impulsionou a exploração espacial
+                    </p>
+                </div>
+
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/F7wtsc-oeNs"
+                        title="Documentário sobre a Corrida Espacial"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="video-info">
+                    <div class="info-item">
+                        <span class="info-icon">⏱️</span>
+                        <div>
+                            <div class="info-title">Duração: 4 minutos</div>
+                            <div class="info-subtitle">Contexto histórico da Guerra Fria</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🎯</span>
+                        <div>
+                            <div class="info-title">Contexto histórico da Guerra Fria</div>
+                            <div class="info-subtitle">Rivalidade EUA vs URSS</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🌟</span>
+                        <div>
+                            <div class="info-title">Preparação para a linha do tempo</div>
+                            <div class="info-subtitle">Contexto histórico</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-footer">
+                    <button class="btn-primary" onclick="scrollToTimeline()">
+                        Continuar para a Linha do Tempo →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline-section" id="timeline-section">
+            <div class="section-content">
+                <div class="section-header">
+                    <h2 class="section-title">Linha do Tempo Interativa</h2>
+                    <p class="section-description">
+                        Explore os principais marcos da corrida espacial clicando nos eventos abaixo
+                    </p>
+                </div>
+
+                <div class="timeline" id="timeline">
+                </div>
+
+                <div class="challenges-section">
+                    <h3 class="challenges-title">🎮 Escolha seu Desafio</h3>
+                    <div class="challenges-grid">
+                        <div class="challenge-card" onclick="startQuiz()">
+                            <div class="challenge-icon">🧠</div>
+                            <h4 class="challenge-title">Quiz Espacial</h4>
+                            <p class="challenge-description">
+                                Teste seus conhecimentos com 10 perguntas baseadas na linha do tempo. 
+                                Cada resposta correta vale 100 pontos!
+                            </p>
+                            <button class="btn-quiz">Começar Quiz</button>
+                        </div>
+                        <div class="challenge-card" onclick="startGame()">
+                            <div class="challenge-icon">🚀</div>
+                            <h4 class="challenge-title">Nave Espacial</h4>
+                            <p class="challenge-description">
+                                Pilote uma nave espacial desviando de asteroides! Use as setas do teclado para controlar. 
+                                Sobreviva 15 segundos para ganhar 200 pontos!
+                            </p>
+                            <button class="btn-game">Iniciar Jogo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="achievements-section" id="achievements-section" style="display: none;">
+            <div class="section-content">
+                <h2 class="section-title">🏆 Suas Conquistas</h2>
+                <div class="achievements-list" id="achievements-list">
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p>Desenvolvido por: Matheus Habeck, Gustavo Minatto, João Moura</p>
+            </div>
+        </footer>
+    </div>
+
+    <div class="modal" id="quiz-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🧠 Quiz Espacial</h3>
+                <div class="modal-info">
+                    <span id="quiz-progress">1 de 10</span>
+                    <button class="close-btn" onclick="closeQuiz()">✕</button>
+                </div>
+            </div>
+            <div class="modal-body" id="quiz-body">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="game-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🚀 Nave Espacial</h3>
+                <button class="close-btn" onclick="closeGame()">✕</button>
+            </div>
+            <div class="modal-body" id="game-body">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
