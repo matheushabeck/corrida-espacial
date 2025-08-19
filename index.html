@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corrida Espacial - 1957-1975</title>
+    <title>Corrida Espacial - A Jornada</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -26,13 +26,13 @@
 
         <section class="hero">
             <div class="hero-content">
-                <div class="hero-badge">1957 - 1975</div>
+                <div class="hero-badge">SUA MISSÃO COMEÇA AGORA</div>
                 <h1 class="hero-title">
                     <span class="title-red">CORRIDA</span>
                     <span class="title-blue">ESPACIAL</span>
                 </h1>
                 <p class="hero-description">
-                    Descubra como a rivalidade entre EUA e URSS levou a humanidade às estrelas
+                    Você foi convocado para uma aventura da história. Complete seu treinamento e prove seu valor.
                 </p>
                 
                 <div class="hero-stats">
@@ -51,12 +51,11 @@
                 </div>
 
                 <div class="hero-buttons">
-                    <button class="btn-primary" onclick="scrollToVideo()">🚀 Começar Jornada</button>
-                    <button class="btn-secondary" onclick="scrollToTimeline()">📅 Ver Linha do Tempo</button>
+                    <button class="btn-primary" onclick="scrollToVideo()">🚀 Começar Treinamento</button>
                 </div>
 
                 <div class="scroll-indicator">
-                    <div class="scroll-text">Role para descobrir</div>
+                    <div class="scroll-text">Role para o resumo</div>
                     <div class="scroll-arrow">↓</div>
                 </div>
             </div>
@@ -65,9 +64,9 @@
         <section class="video-section" id="video-section">
             <div class="section-content">
                 <div class="section-header">
-                    <h2 class="section-title">Assista ao Vídeo</h2>
+                    <h2 class="section-title">Missão 1: Resumo</h2>
                     <p class="section-description">
-                        Entenda o contexto histórico da Guerra Fria e como ela impulsionou a exploração espacial
+                        Todo cadete precisa entender o cenário. Assista ao vídeo para compreender o contexto da Guerra Fria e desbloquear a próxima fase do seu treinamento.
                     </p>
                 </div>
 
@@ -81,70 +80,44 @@
                     </iframe>
                 </div>
 
-                <div class="video-info">
-                    <div class="info-item">
-                        <span class="info-icon">⏱️</span>
-                        <div>
-                            <div class="info-title">Duração: 4 minutos</div>
-                            <div class="info-subtitle">Contexto histórico da Guerra Fria</div>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-icon">🎯</span>
-                        <div>
-                            <div class="info-title">Contexto histórico da Guerra Fria</div>
-                            <div class="info-subtitle">Rivalidade EUA vs URSS</div>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-icon">🌟</span>
-                        <div>
-                            <div class="info-title">Preparação para a linha do tempo</div>
-                            <div class="info-subtitle">Contexto histórico</div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="section-footer">
-                    <button class="btn-primary" onclick="scrollToTimeline()">
-                        Continuar para a Linha do Tempo →
+                    <button class="btn-primary" onclick="unlockTimeline()">
+                        Briefing Concluído →
                     </button>
                 </div>
             </div>
         </section>
 
-        <section class="timeline-section" id="timeline-section">
+        <section class="timeline-section locked-section" id="timeline-section">
             <div class="section-content">
                 <div class="section-header">
-                    <h2 class="section-title">Linha do Tempo Interativa</h2>
-                    <p class="section-description">
-                        Explore os principais marcos da corrida espacial clicando nos eventos abaixo
+                    <h2 class="section-title">Missão 2: Análise de Arquivos</h2>
+                    <p class="section-description" id="timeline-description">
+                        Sua missão é analisar cada marco histórico. Para desbloquear o próximo, você deve provar que entendeu o arquivo anterior.
                     </p>
                 </div>
 
                 <div class="timeline" id="timeline">
                 </div>
 
-                <div class="challenges-section">
-                    <h3 class="challenges-title">🎮 Escolha seu Desafio</h3>
+                <div class="challenges-section locked-section" id="challenges-section">
+                    <h3 class="challenges-title">🎮 Testes de Aptidão (Bloqueado)</h3>
                     <div class="challenges-grid">
                         <div class="challenge-card" onclick="startQuiz()">
                             <div class="challenge-icon">🧠</div>
-                            <h4 class="challenge-title">Quiz Espacial</h4>
+                            <h4 class="challenge-title">Teste de Conhecimento</h4>
                             <p class="challenge-description">
-                                Teste seus conhecimentos com 10 perguntas baseadas na linha do tempo. 
-                                Cada resposta correta vale 100 pontos!
+                                Prove seu conhecimento teórico respondendo 10 perguntas cruciais sobre a Corrida Espacial.
                             </p>
-                            <button class="btn-quiz">Começar Quiz</button>
+                            <button class="btn-quiz">Começar Teste</button>
                         </div>
                         <div class="challenge-card" onclick="startGame()">
                             <div class="challenge-icon">🚀</div>
-                            <h4 class="challenge-title">Nave Espacial</h4>
+                            <h4 class="challenge-title">Teste de Pilotagem</h4>
                             <p class="challenge-description">
-                                Pilote uma nave espacial desviando de asteroides! Use as setas do teclado para controlar. 
-                                Sobreviva 15 segundos para ganhar 200 pontos!
+                                Assuma o controle de uma nave e sobreviva a uma chuva de satélites por 20 segundos para provar suas habilidades.
                             </p>
-                            <button class="btn-game">Iniciar Jogo</button>
+                            <button class="btn-game">Iniciar Teste</button>
                         </div>
                     </div>
                 </div>
@@ -153,7 +126,7 @@
 
         <section class="achievements-section" id="achievements-section" style="display: none;">
             <div class="section-content">
-                <h2 class="section-title">🏆 Suas Conquistas</h2>
+                <h2 class="section-title">🏆 Missão Cumprida, Herói Espacial! 🏆</h2>
                 <div class="achievements-list" id="achievements-list">
                 </div>
             </div>
@@ -165,11 +138,12 @@
             </div>
         </footer>
     </div>
-
+    
+    <!-- Modal do Quiz Principal -->
     <div class="modal" id="quiz-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">🧠 Quiz Espacial</h3>
+                <h3 class="modal-title">🧠 Teste de Conhecimento</h3>
                 <div class="modal-info">
                     <span id="quiz-progress">1 de 10</span>
                     <button class="close-btn" onclick="closeQuiz()">✕</button>
@@ -179,11 +153,26 @@
             </div>
         </div>
     </div>
+    
+    <!-- NOVO MODAL: Quiz da Linha do Tempo -->
+    <div class="modal" id="timeline-quiz-modal">
+        <div class="modal-content" id="timeline-quiz-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Verificação de Conhecimento</h3>
+                <!-- Não há botão de fechar para forçar a resposta -->
+            </div>
+            <div class="modal-body" id="timeline-quiz-body">
+                <div class="quiz-question" id="timeline-question-text"></div>
+                <div class="quiz-options" id="timeline-options-container"></div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Modal do Jogo -->
     <div class="modal" id="game-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">🚀 Nave Espacial</h3>
+                <h3 class="modal-title">🚀 Teste de Pilotagem</h3>
                 <button class="close-btn" onclick="closeGame()">✕</button>
             </div>
             <div class="modal-body" id="game-body">
