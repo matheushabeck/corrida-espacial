@@ -9,8 +9,10 @@ let gamePhase = "ready";
 let shipPosition = 50;
 let obstacles = [];
 let gameScore = 0;
+let quizDifficulty = 'medio';
+let gameDifficulty = 'medio';
+let correctQuizAnswers = 0;
 
-// Variáveis de Estado da Jornada
 let quizCompleted = false;
 let gameCompleted = false;
 let currentTimelineQuestionIndex = 0;
@@ -161,22 +163,136 @@ const timelineEvents = [
   }
 ];
 
-const quizQuestions = [
-  { question: "Qual foi o primeiro satélite artificial lançado ao espaço?", options: ["Explorer 1", "Sputnik 1", "Vanguard 1", "Luna 1"], correct: 1, explanation: "O Sputnik 1 foi lançado pela URSS em 4 de outubro de 1957, dando início à Corrida Espacial." },
-  { question: "Qual animal foi o primeiro ser vivo a orbitar a Terra?", options: ["Laika (cadela)", "Ham (chimpanzé)", "Albert II (macaco)", "Félicette (gata)"], correct: 0, explanation: "Laika, uma cadela, foi o primeiro ser vivo a orbitar a Terra a bordo do Sputnik 2 em 1957." },
-  { question: "Qual foi o primeiro satélite americano lançado com sucesso?", options: ["Vanguard 1", "Explorer 1", "Pioneer 1", "Telstar 1"], correct: 1, explanation: "O Explorer 1, lançado em 1958, foi a resposta dos EUA ao Sputnik e descobriu os cinturões de radiação de Van Allen." },
-  { question: "Quem foi o primeiro ser humano no espaço?", options: ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "Alan Shepard"], correct: 2, explanation: "O cosmonauta soviético Yuri Gagarin se tornou o primeiro humano no espaço em 12 de abril de 1961." },
-  { question: "Quem foi o primeiro americano no espaço?", options: ["John Glenn", "Alan Shepard", "Gus Grissom", "Scott Carpenter"], correct: 1, explanation: "Alan Shepard foi o primeiro americano no espaço com um voo suborbital em 5 de maio de 1961." },
-  { question: "Quem foi a primeira mulher no espaço?", options: ["Sally Ride", "Valentina Tereshkova", "Mae Jemison", "Svetlana Savitskaya"], correct: 1, explanation: "A cosmonauta soviética Valentina Tereshkova se tornou a primeira mulher no espaço em 1963." },
-  { question: "Quem realizou a primeira caminhada espacial?", options: ["Ed White", "Alexei Leonov", "Neil Armstrong", "John Glenn"], correct: 1, explanation: "O cosmonauta Alexei Leonov realizou a primeira caminhada espacial (atividade extraveicular) em 1965." },
-  { question: "Qual missão foi a primeira a orbitar a Lua com tripulação?", options: ["Apollo 7", "Apollo 8", "Apollo 9", "Apollo 10"], correct: 1, explanation: "A missão Apollo 8, em 1968, foi a primeira a levar humanos para orbitar a Lua." },
-  { question: "Em que ano o homem pisou na Lua pela primeira vez?", options: ["1967", "1968", "1969", "1970"], correct: 2, explanation: "Neil Armstrong e Buzz Aldrin, da missão Apollo 11, pisaram na Lua em 20 de julho de 1969." },
-  { question: "Qual missão marcou o fim oficial da corrida espacial?", options: ["Apollo 17", "Skylab", "Apollo-Soyuz", "Salyut 1"], correct: 2, explanation: "O Projeto Apollo-Soyuz em 1975, onde uma nave americana e uma soviética acoplaram no espaço, marcou o fim simbólico da Corrida Espacial." },
+const quizQuestionsFacil = [
+    { question: "Qual país lançou o primeiro satélite, o Sputnik 1?", options: ["EUA", "China", "URSS", "Reino Unido"], correct: 2, explanation: "A União Soviética (URSS) lançou o Sputnik 1 em 1957, dando início à Corrida Espacial." },
+    { question: "Quem foi o primeiro ser humano a pisar na Lua?", options: ["Yuri Gagarin", "Neil Armstrong", "Buzz Aldrin", "Michael Collins"], correct: 1, explanation: "Neil Armstrong, comandante da Apollo 11, foi o primeiro humano a pisar na Lua em 1969." },
+    { question: "Qual era o nome da missão que levou o primeiro homem à Lua?", options: ["Apollo 10", "Apollo 11", "Gemini 7", "Mercury 5"], correct: 1, explanation: "A missão Apollo 11 da NASA foi a responsável pelo feito histórico em 20 de julho de 1969." },
+    { question: "Qual animal foi o primeiro ser vivo a orbitar a Terra?", options: ["Macaco", "Gato", "Cachorro", "Rato"], correct: 2, explanation: "A cadela Laika foi o primeiro ser vivo a orbitar o planeta a bordo da nave soviética Sputnik 2." },
+    { question: "Quem foi a primeira mulher no espaço?", options: ["Sally Ride", "Valentina Tereshkova", "Mae Jemison", "Judith Resnik"], correct: 1, explanation: "A cosmonauta soviética Valentina Tereshkova se tornou a primeira mulher no espaço em 1963." }
+];
+
+const quizQuestionsMedio = [
+    { question: "Qual foi a principal descoberta científica do primeiro satélite americano, o Explorer 1?", options: ["Água em Marte", "Anéis de Saturno", "Cinturões de Van Allen", "Ventos solares"], correct: 2, explanation: "O Explorer 1 descobriu os cinturões de radiação que rodeiam a Terra, nomeados em homenagem a James Van Allen." },
+    { question: "Qual cosmonauta realizou a primeira caminhada espacial (EVA)?", options: ["Yuri Gagarin", "Gherman Titov", "Alexei Leonov", "Pavel Belyayev"], correct: 2, explanation: "Alexei Leonov realizou a primeira atividade extraveicular em 1965, flutuando fora da nave Voskhod 2 por 12 minutos." },
+    { question: "Qual missão da Apollo foi a primeira a orbitar a Lua com tripulação?", options: ["Apollo 7", "Apollo 8", "Apollo 9", "Apollo 10"], correct: 1, explanation: "A missão Apollo 8, em dezembro de 1968, foi a primeira a levar humanos para a órbita lunar." },
+    { question: "Qual foi a primeira estação espacial lançada com sucesso?", options: ["Skylab", "Mir", "Salyut 1", "Estação Espacial Internacional"], correct: 2, explanation: "A Salyut 1, lançada pela União Soviética em 1971, foi a primeira estação espacial da história." },
+    { question: "O Projeto de Teste Apollo-Soyuz, em 1975, marcou um momento de colaboração entre quais duas nações?", options: ["EUA e China", "EUA e URSS", "URSS e Japão", "EUA e Reino Unido"], correct: 1, explanation: "A missão conjunta Apollo-Soyuz foi um símbolo do fim da Corrida Espacial, unindo astronautas americanos e cosmonautas soviéticos." }
+];
+
+const quizQuestionsDificil = [
+    { question: "Qual foi o nome do programa que precedeu o Projeto Apollo e que foi crucial para o desenvolvimento de técnicas de encontro e acoplagem espacial?", options: ["Programa Mercury", "Programa Gemini", "Programa Skylab", "Programa Vanguard"], correct: 1, explanation: "O Programa Gemini foi fundamental para testar manobras e tecnologias essenciais para o sucesso das missões Apollo." },
+    { question: "A tragédia da Apollo 1, que vitimou três astronautas, ocorreu durante qual tipo de evento?", options: ["Lançamento", "Reentrada na atmosfera", "Um teste de lançamento na plataforma", "Caminhada espacial"], correct: 2, explanation: "Um incêndio na cabine durante um ensaio de lançamento em 27 de janeiro de 1967 causou a morte dos astronautas Gus Grissom, Ed White e Roger Chaffee." },
+    { question: "Qual era o nome do módulo lunar que pousou na Lua durante a missão Apollo 11?", options: ["Columbia", "Challenger", "Eagle", "Odyssey"], correct: 2, explanation: "O Módulo Lunar 'Eagle' (Águia) transportou Armstrong e Aldrin para a superfície lunar, enquanto Michael Collins orbitava no Módulo de Comando 'Columbia'." },
+    { question: "A primeira tripulação da estação espacial Salyut 1 teve um fim trágico. Qual foi a causa do acidente?", options: ["Explosão no retorno", "Colisão com um satélite", "Despressurização da cápsula Soyuz", "Falta de suprimentos"], correct: 2, explanation: "A tripulação da Soyuz 11 morreu devido à despressurização da cápsula durante os preparativos para a reentrada, após uma estadia bem-sucedida na Salyut 1." },
+    { question: "Qual engenheiro-chefe, ex-cientista alemão, foi uma figura central no desenvolvimento do foguete Saturn V da NASA?", options: ["Robert Goddard", "Hermann Oberth", "Wernher von Braun", "Sergei Korolev"], correct: 2, explanation: "Wernher von Braun e sua equipe foram fundamentais para o programa espacial americano, desenvolvendo o poderoso foguete Saturn V que levou as missões Apollo à Lua." }
+];
+
+let currentQuestions = [];
+
+const archiveItems = [
+    {
+        id: 1,
+        title: "Sergei Korolev, o 'Designer-Chefe'",
+        cost: 250,
+        image: "https://static.mk.ru/upload/entities/2021/01/13/17/articles/detailPicture/4c/42/86/af/fb3b895cde9c03be97afe6dd2c0ffeb4.jpg",
+        content: "O sucesso inicial da URSS deve-se a Sergei Korolev. Sua identidade foi mantida em segredo, sendo conhecido apenas como 'Designer-Chefe'. Sua morte prematura em 1966 foi um golpe duro para o programa lunar soviético.",
+        unlocked: false
+    },
+    {
+        id: 2,
+        title: "O Foguete Saturn V",
+        cost: 300,
+        image: "https://ogimg.infoglobo.com.br/brasil/homem-na-lua-50-anos/23810377-092-be2/FT1086A/760/imagem-lancamento-saturno-v.jpg",
+        content: "A peça central do programa Apollo, o Saturn V, continua sendo o foguete mais potente já construído. Com 111 metros de altura, foi projetado pela equipe de Wernher von Braun e teve um histórico de 13 voos sem falhas.",
+        unlocked: false
+    },
+    {
+        id: 3,
+        title: "O Programa Buran",
+        cost: 400,
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Buran_on_An-225_%28Le_Bourget_1989%29_1.JPEG/330px-Buran_on_An-225_%28Le_Bourget_1989%29_1.JPEG",
+        content: "A resposta soviética ao Ônibus Espacial foi o Buran. Capaz de voar de forma totalmente automática, ele realizou um voo orbital não tripulado bem-sucedido em 1988, mas o programa foi cancelado por falta de fundos.",
+        unlocked: false
+    },
+    {
+        id: 4,
+        title: "O 'Quase Desastre' da Apollo 11",
+        cost: 350,
+        image: "https://ichef.bbci.co.uk/ace/ws/800/cpsprodpb/17DAB/production/_90470779_apollo11montagem.jpg.webp",
+        content: "Durante a descida final na Lua, o computador do Módulo Lunar disparou alarmes de sobrecarga. Neil Armstrong assumiu o controle manual, desviando de uma cratera e pousando com menos de 30 segundos de combustível restante.",
+        unlocked: false
+    },
+    {
+        id: 5,
+        title: "O Foguete N1: O Sonho Lunar Soviético",
+        cost: 450,
+        image: "https://i.redd.it/bf3fo96d8as21.jpg",
+        content: "O N1 era a contraparte soviética do Saturn V. Infelizmente, o projeto foi atormentado por falhas de motor. Todos os quatro lançamentos de teste terminaram em explosões catastróficas, sendo um dos maiores reveses do programa espacial da URSS.",
+        unlocked: false
+    },
+    {
+        id: 6,
+        title: "Apollo 13: O 'Fracasso Bem-Sucedido'",
+        cost: 325,
+        image: "https://media.licdn.com/dms/image/v2/D4D12AQG_n8urgm1qlA/article-cover_image-shrink_600_2000/B4DZYp8qUJHwAQ-/0/1744460490504?e=2147483647&v=beta&t=HgRBevL9hL3Fie0Q_qse69qBJJ_VINOjmgMvVF5Hjnk",
+        content: "Após a explosão de um tanque de oxigênio a caminho da Lua, a missão se tornou uma luta pela sobrevivência. Usando o Módulo Lunar como 'bote salva-vidas', a equipe em terra e os astronautas improvisaram soluções para trazer a tripulação de volta em segurança.",
+        unlocked: false
+    },
+    {
+        id: 7,
+        title: "O Veículo Lunar Roving (LRV)",
+        cost: 275,
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Apollo15LunarRover.jpg/960px-Apollo15LunarRover.jpg",
+        content: "Usado nas últimas três missões Apollo, o 'jipe lunar' permitiu que os astronautas explorassem áreas muito maiores da superfície lunar. Este veículo elétrico dobrável foi um feito de engenharia, expandindo enormemente o alcance científico das missões.",
+        unlocked: false
+    },
+    {
+        id: 8,
+        title: "As Primeiras Fotos de Vênus",
+        cost: 425,
+        image: "https://spacetoday.com.br/wp-content/uploads/2014/02/724700main_venus_full_full.jpg",
+        content: "Enquanto a corrida para a Lua estava no auge, a URSS focou em outro alvo: Vênus. O programa Venera conseguiu o feito incrível de pousar várias sondas na superfície infernal do planeta, transmitindo as primeiras e únicas imagens já feitas de lá.",
+        unlocked: false
+    },
+    {
+        id: 9,
+        title: "A Seleção de Valentina Tereshkova",
+        cost: 375,
+        image: "https://s4.static.brasilescola.uol.com.br/be/2021/06/valentina-tereshkova-be.jpg",
+        content: "Para ser a primeira mulher no espaço, Tereshkova não era uma piloto de testes, mas sim uma operária têxtil e paraquedista amadora. Sua habilidade com paraquedas foi crucial, já que os primeiros cosmonautas ejetavam da cápsula e pousavam separadamente.",
+        unlocked: false
+    }
+];
+
+const mysteriousFragments = [
+    {
+        id: 1,
+        title: "Fragmento Alfa",
+        icon: "📚",
+        hint: "Desbloqueie todos os 9 arquivos da Corrida Espacial para encontrar esta peça.",
+        unlocked: false
+    },
+    {
+        id: 2,
+        title: "Fragmento Beta",
+        icon: "🧠",
+        hint: "Domine o conhecimento. Obtenha uma pontuação perfeita no Teste de Conhecimento na dificuldade Difícil.",
+        unlocked: false
+    },
+    {
+        id: 3,
+        title: "Fragmento Gama",
+        icon: "🚀",
+        hint: "Prove sua perícia de piloto. Conclua com sucesso o Teste de Pilotagem na dificuldade Difícil.",
+        unlocked: false
+    }
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
   createStars();
   generateTimeline();
+  generateArchive();
+  generateMysteriousFragmentSection();
   updateScore();
   setupKeyboardControls();
 });
@@ -284,6 +400,11 @@ function completeTimelinePhase() {
   challengesSection.classList.remove('locked-section');
   challengesSection.classList.add('unlocked');
   challengesSection.querySelector('.challenges-title').innerHTML = "🎮 Testes de Aptidão Desbloqueados!";
+  
+  const archiveSection = document.getElementById('archive-section');
+  archiveSection.classList.remove('locked-section');
+  archiveSection.classList.add('unlocked');
+
   challengesSection.scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -317,7 +438,121 @@ function showAchievements() {
   });
 }
 
-function startQuiz() {
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+function generateMysteriousFragmentSection() {
+    const fragmentGrid = document.getElementById('fragment-grid');
+    fragmentGrid.innerHTML = '';
+    mysteriousFragments.forEach(fragment => {
+        const card = document.createElement('div');
+        card.className = `fragment-card ${fragment.unlocked ? 'unlocked' : ''}`;
+        
+        let content = `
+            <div class="fragment-icon">${fragment.unlocked ? '✅' : fragment.icon}</div>
+            <h4 class="fragment-title">${fragment.title} ${fragment.unlocked ? '(Encontrado)' : ''}</h4>
+        `;
+        
+        if (!fragment.unlocked) {
+            content += `<p class="fragment-hint">${fragment.hint}</p>`;
+        }
+
+        card.innerHTML = content;
+        fragmentGrid.appendChild(card);
+    });
+}
+
+function unlockFragment(id) {
+    const fragment = mysteriousFragments.find(f => f.id === id);
+    if (fragment && !fragment.unlocked) {
+        fragment.unlocked = true;
+        showToast(`Fragmento Misterioso "${fragment.title}" Encontrado!`);
+        generateMysteriousFragmentSection();
+        
+        const allUnlocked = mysteriousFragments.every(f => f.unlocked);
+        if (allUnlocked) {
+            setTimeout(() => {
+                showFinalReveal();
+            }, 1000);
+        }
+    }
+}
+
+function showFinalReveal() {
+    document.getElementById('final-reveal-modal').classList.add('active');
+}
+
+function closeFinalReveal() {
+    document.getElementById('final-reveal-modal').classList.remove('active');
+}
+
+function generateArchive() {
+    const archiveGrid = document.getElementById('archive-grid');
+    archiveGrid.innerHTML = ''; 
+
+    archiveItems.forEach(item => {
+        const card = document.createElement('div');
+        card.className = `archive-card ${item.unlocked ? 'unlocked' : 'locked'}`;
+        card.innerHTML = `
+            <div class="locked-overlay">
+                <h3 class="archive-title-locked">${item.title}</h3>
+                <p class="archive-cost">⭐ ${item.cost} Pontos</p>
+                <button class="btn-unlock" onclick="unlockArchiveItem(${item.id})">Desbloquear</button>
+            </div>
+            <div class="unlocked-content">
+                <img src="${item.image}" alt="${item.title}">
+                <div class="unlocked-content-text">
+                    <h3 class="archive-title-unlocked">${item.title}</h3>
+                    <p class="archive-content-text">${item.content}</p>
+                </div>
+            </div>
+        `;
+        archiveGrid.appendChild(card);
+    });
+}
+
+function unlockArchiveItem(itemId) {
+    const item = archiveItems.find(i => i.id === itemId);
+    if (!item) return;
+
+    if (currentScore >= item.cost) {
+        currentScore -= item.cost;
+        item.unlocked = true;
+        
+        if (!currentAchievements.includes("Historiador Espacial")) {
+            currentAchievements.push("Historiador Espacial");
+        }
+
+        updateScore();
+        generateArchive();
+
+        const allArchivesUnlocked = archiveItems.every(i => i.unlocked);
+        if (allArchivesUnlocked) {
+            document.getElementById('mysterious-fragment-section').style.display = 'block';
+            unlockFragment(1);
+        }
+
+    } else {
+        const scoreElement = document.getElementById('score-item');
+        scoreElement.classList.add('shake-score');
+        setTimeout(() => scoreElement.classList.remove('shake-score'), 500);
+    }
+}
+
+function startQuiz(difficulty) {
+  quizDifficulty = difficulty;
+  correctQuizAnswers = 0;
+  switch (difficulty) {
+    case 'facil': currentQuestions = quizQuestionsFacil; break;
+    case 'medio': currentQuestions = quizQuestionsMedio; break;
+    case 'dificil': currentQuestions = quizQuestionsDificil; break;
+  }
   currentQuiz = 0;
   selectedAnswer = null;
   showExplanation = false;
@@ -332,28 +567,33 @@ function closeQuiz() {
 function showQuizQuestion() {
   const quizBody = document.getElementById("quiz-body");
   const progress = document.getElementById("quiz-progress");
-  const questionData = quizQuestions[currentQuiz];
-  progress.textContent = `${currentQuiz + 1} de ${quizQuestions.length}`;
+  const questionData = currentQuestions[currentQuiz];
+  progress.textContent = `${currentQuiz + 1} de ${currentQuestions.length}`;
   if (!showExplanation) {
     quizBody.innerHTML = `<div class="quiz-question">${questionData.question}</div><div class="quiz-options">${questionData.options.map((option, index) => `<button class="quiz-option" onclick="handleQuizAnswer(${index})">${option}</button>`).join("")}</div>`;
   } else {
     const isCorrect = selectedAnswer === questionData.correct;
-    quizBody.innerHTML = `<div class="quiz-explanation"><div class="quiz-result">${isCorrect ? "🎉" : "❌"}</div><h4 class="quiz-result-title">${isCorrect ? "Correto!" : "Incorreto!"}</h4><div class="quiz-explanation-text">${questionData.explanation}</div><button class="btn-primary" onclick="nextQuestion()">${currentQuiz < quizQuestions.length - 1 ? "Próxima Pergunta" : "Finalizar Teste"}</button></div>`;
+    quizBody.innerHTML = `<div class="quiz-explanation"><div class="quiz-result">${isCorrect ? "🎉" : "❌"}</div><h4 class="quiz-result-title">${isCorrect ? "Correto!" : "Incorreto!"}</h4><div class="quiz-explanation-text">${questionData.explanation}</div><button class="btn-primary" onclick="nextQuestion()">${currentQuiz < currentQuestions.length - 1 ? "Próxima Pergunta" : "Finalizar Teste"}</button></div>`;
   }
 }
 
 function handleQuizAnswer(answerIndex) {
   selectedAnswer = answerIndex;
   showExplanation = true;
-  if (answerIndex === quizQuestions[currentQuiz].correct) {
-    currentScore += 100;
+  if (answerIndex === currentQuestions[currentQuiz].correct) {
+    correctQuizAnswers++;
+    let points = 0;
+    if (quizDifficulty === 'facil') points = 50;
+    if (quizDifficulty === 'medio') points = 100;
+    if (quizDifficulty === 'dificil') points = 150;
+    currentScore += points;
     updateScore();
   }
   showQuizQuestion();
 }
 
 function nextQuestion() {
-  if (currentQuiz < quizQuestions.length - 1) {
+  if (currentQuiz < currentQuestions.length - 1) {
     currentQuiz++;
     selectedAnswer = null;
     showExplanation = false;
@@ -365,25 +605,33 @@ function nextQuestion() {
       updateScore();
     }
     quizCompleted = true;
+
+    if (quizDifficulty === 'dificil' && correctQuizAnswers === currentQuestions.length) {
+        unlockFragment(2);
+    }
+
     checkGraduation();
   }
 }
 
-// --- SEÇÃO DO JOGO TOTALMENTE REESCRITA E CORRIGIDA ---
 
 const GAME_DURATION_MS = 20000;
 const TICK_MS = 16;
-const SPAWN_INTERVAL_MS = 600;
-const OBSTACLE_SPEED = 0.8;
-const SHIP_STEP = 2.5;
 const SHIP_MIN = 10;
 const SHIP_MAX = 90;
+
+const gameDifficulties = {
+    facil: { speed: 1.0, spawnInterval: 750, points: 200, shipStep: 2.5 },
+    medio: { speed: 1.5, spawnInterval: 600, points: 300, shipStep: 2.8 },
+    dificil: { speed: 2.0, spawnInterval: 450, points: 400, shipStep: 3.2 }
+};
 
 let pressedKeys = { up: false, down: false };
 let gameStartTime = 0;
 let lastSpawnAt = 0;
 
-function startGame() {
+function startGame(difficulty) {
+  gameDifficulty = difficulty;
   gamePhase = "ready";
   shipPosition = 50;
   gameScore = 0;
@@ -399,6 +647,9 @@ function closeGame() {
 
 function showGameScreen() {
     const gameBody = document.getElementById("game-body");
+    const modalTitle = document.getElementById("game-modal-title");
+    modalTitle.textContent = `🚀 Teste de Pilotagem (${gameDifficulty.charAt(0).toUpperCase() + gameDifficulty.slice(1)})`;
+
     if (gamePhase === "ready") {
         gameBody.innerHTML = `
             <div class="game-ready">
@@ -434,16 +685,25 @@ function showGameScreen() {
 
     } else if (gamePhase === "finished") {
         const isWin = (performance.now() - gameStartTime) >= GAME_DURATION_MS;
+        const settings = gameDifficulties[gameDifficulty];
+        let resultText = '';
+
+        if (isWin) {
+            resultText = `+${gameScore} de sobrevivência + ${settings.points} de bônus!`;
+        } else {
+            resultText = `+${gameScore} pontos de sobrevivência`;
+        }
+        
         gameBody.innerHTML = `
             <div class="game-finished">
                 <div class="game-icon">${isWin ? "🏆" : "💥"}</div><h4 class="game-title">${isWin ? "Teste Concluído!" : "Nave Destruída!"}</h4>
                 <p class="game-description">${isWin ? "Parabéns, piloto! Você provou suas habilidades!" : "Sua nave colidiu. A prática leva à perfeição!"}</p>
                 <div class="game-result-box ${isWin ? "game-result-win" : "game-result-lose"}">
-                    <p class="game-result-score">${isWin ? "+200 pontos conquistados!" : "Teste falhou"}</p>
-                    <p class="game-result-final">Pontuação final: ${gameScore}</p>
+                    <p class="game-result-score">${resultText}</p>
+                    <p class="game-result-final">Pontuação desta tentativa: ${gameScore}</p>
                 </div>
                 <div class="game-buttons">
-                    <button class="btn-game" onclick="startGame()">Tentar Novamente</button>
+                    <button class="btn-game" onclick="startGame('${gameDifficulty}')">Tentar Novamente</button>
                     <button class="btn-secondary" onclick="closeGame()">Fechar</button>
                 </div>
             </div>`;
@@ -463,13 +723,14 @@ function playGame() {
 function gameLoop() {
     if (gamePhase !== 'playing') return;
     const now = performance.now();
+    const settings = gameDifficulties[gameDifficulty];
     if (now - gameStartTime >= GAME_DURATION_MS) {
         endGame(true);
         return;
     }
-    if (pressedKeys.up) shipPosition = Math.max(SHIP_MIN, shipPosition - SHIP_STEP);
-    if (pressedKeys.down) shipPosition = Math.min(SHIP_MAX, shipPosition + SHIP_STEP);
-    if (now - lastSpawnAt >= SPAWN_INTERVAL_MS) {
+    if (pressedKeys.up) shipPosition = Math.max(SHIP_MIN, shipPosition - settings.shipStep);
+    if (pressedKeys.down) shipPosition = Math.min(SHIP_MAX, shipPosition + settings.shipStep);
+    if (now - lastSpawnAt >= settings.spawnInterval) {
         const newObstacle = { id: now, x: 100, y: Math.random() * 80 + 10, element: null };
         const el = document.createElement("div");
         el.id = `obs-${newObstacle.id}`;
@@ -484,7 +745,7 @@ function gameLoop() {
     }
     for (let i = obstacles.length - 1; i >= 0; i--) {
         const obs = obstacles[i];
-        obs.x -= OBSTACLE_SPEED;
+        obs.x -= settings.speed;
         if (obs.x < -10) {
             obs.element.remove();
             obstacles.splice(i, 1);
@@ -512,13 +773,23 @@ function endGame(won) {
     if (gameInterval) clearInterval(gameInterval);
     gameInterval = null;
     gamePhase = "finished";
+
+    currentScore += gameScore;
+
     if (won) {
-        currentScore += 200;
+        const settings = gameDifficulties[gameDifficulty];
+        currentScore += settings.points;
         if (!currentAchievements.includes("Piloto Espacial")) {
             currentAchievements.push("Piloto Espacial");
         }
-        updateScore();
+        
+        if (gameDifficulty === 'dificil') {
+            unlockFragment(3);
+        }
     }
+    
+    updateScore();
+    
     gameCompleted = true;
     checkGraduation();
     showGameScreen();

@@ -1,4 +1,3 @@
-/* --- NOVA IMPORTAÇÃO DE FONTE (adicione o link no HTML) --- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
 
 * {
@@ -8,7 +7,6 @@
 }
 
 body {
-  /* --- FONTE ATUALIZADA --- */
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%);
   color: white;
@@ -47,7 +45,7 @@ body {
 }
 
 .header {
-  position: fixed; /* Fixo na tela */
+  position: fixed; 
   top: 0;
   left: 0;
   width: 100%;
@@ -57,7 +55,6 @@ body {
   justify-content: flex-end;
 }
 
-/* --- MELHORIA VISUAL: EFEITO HUD DE VIDRO --- */
 .score-section {
   display: flex;
   gap: 24px;
@@ -83,14 +80,13 @@ body {
   position: relative;
   z-index: 10;
   text-align: center;
-  padding: 120px 24px 80px 24px; /* Aumentado o padding superior */
-  min-height: 100vh; /* Garante que o hero ocupe a tela inteira */
+  padding: 120px 24px 80px 24px; 
+  min-height: 100vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* --- MELHORIA VISUAL: ANIMAÇÕES DE ENTRADA --- */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -118,7 +114,7 @@ body {
 
 .hero-title {
   font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 900; /* Mais pesado para impacto */
+  font-weight: 900;
   margin-bottom: 24px;
   line-height: 1.1;
   text-shadow: 0 0 15px rgba(0,0,0,0.3);
@@ -173,7 +169,6 @@ body {
   .hero-buttons { flex-direction: row; justify-content: center; }
 }
 
-/* --- MELHORIA VISUAL: EFEITO DE BRILHO NOS BOTÕES --- */
 .btn-primary {
   background: linear-gradient(90deg, #06b6d4, #8b5cf6);
   color: white; padding: 16px 32px; border: none; border-radius: 50px;
@@ -228,7 +223,6 @@ body {
 .timeline-event { position: relative; display: flex; align-items: center; margin-bottom: 64px; }
 .timeline-event:nth-child(even) { flex-direction: row-reverse; }
 
-/* --- MELHORIA VISUAL: MARCADOR PULSANTE --- */
 .timeline-marker {
   position: absolute;
   left: 50%;
@@ -250,7 +244,6 @@ body {
 .timeline-content { width: 45%; padding: 0 32px; }
 .timeline-card { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid #475569; border-radius: 16px; overflow: hidden; transition: all 0.3s ease; }
 
-/* --- MELHORIA VISUAL: BRILHO NO HOVER DO CARD --- */
 .timeline-card:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow: 0 0 25px rgba(96, 165, 250, 0.3), 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -268,27 +261,25 @@ body {
 .details-btn { background: linear-gradient(90deg, #06b6d4, #8b5cf6); color: white; padding: 8px 16px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; }
 .details-btn:hover { transform: scale(1.05); }
 
-/* --- CORREÇÃO DE ALINHAMENTO: CAIXA DE ANÁLISE --- */
 .timeline-details {
   margin-top: 16px;
-  padding: 24px !important; /* Força o padding correto */
+  padding: 24px !important; 
   background: rgba(71, 85, 105, 0.5);
   border-radius: 0 0 12px 12px;
   animation: slideDown 0.3s ease;
   
-  /* Novas regras de Flexbox para o alinhamento perfeito */
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 20px; /* Espaço entre o texto e o botão */
+  gap: 20px; 
 }
 @keyframes slideDown { from { opacity: 0; max-height: 0; } to { opacity: 1; max-height: 500px; } }
 
 .challenges-section { text-align: center; margin-top: 64px; }
 .challenges-title { font-size: 28px; font-weight: bold; margin-bottom: 32px; background: linear-gradient(90deg, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .challenges-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
-.challenge-card { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid #475569; border-radius: 16px; padding: 32px; cursor: pointer; transition: all 0.3s ease; }
+.challenge-card { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid #475569; border-radius: 16px; padding: 32px; transition: all 0.3s ease; }
 .challenge-card:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); }
 .challenge-icon { font-size: 64px; margin-bottom: 16px; }
 .challenge-title { font-size: 24px; font-weight: bold; margin-bottom: 16px; }
@@ -332,7 +323,7 @@ body {
   .challenges-grid { grid-template-columns: 1fr; }
 }
 .locked-section { filter: grayscale(80%) blur(3px); pointer-events: none; opacity: 0.6; transition: all 0.5s ease-in-out; }
-.locked-section .btn-primary, .locked-section .btn-quiz, .locked-section .btn-game, .locked-section .challenge-card { cursor: not-allowed; }
+.locked-section .btn-primary, .locked-section .btn-quiz, .locked-section .btn-game, .locked-section .challenge-card, .locked-section .archive-card { cursor: not-allowed; }
 .unlocked { filter: none; pointer-events: auto; opacity: 1; }
 .timeline-event.hidden { display: none; }
 .timeline-event.visible { display: flex; animation: fadeIn 0.8s ease; }
@@ -343,7 +334,6 @@ body {
     0% { transform: translateX(0); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); } 20%, 40%, 60%, 80%, 100% { transform: translateX(8px); }
 }
 
-/* --- REGRAS CSS DO JOGO (JÁ CORRIGIDAS) --- */
 #game-body { width: 100%; }
 .game-ready, .game-finished { text-align: center; }
 .game-icon { font-size: 64px; margin-bottom: 16px; }
@@ -367,3 +357,197 @@ body {
 .game-buttons button { flex: 1; padding: 12px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
 .game-buttons button:hover { transform: scale(1.05); }
 
+.difficulty-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+}
+.btn-dificuldade {
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-dificuldade:hover {
+    transform: scale(1.05);
+}
+.btn-facil { background: linear-gradient(90deg, #10b981, #059669); }
+.btn-medio { background: linear-gradient(90deg, #06b6d4, #3b82f6); }
+.btn-dificil { background: linear-gradient(90deg, #f97316, #dc2626); }
+
+.archive-section {
+    padding: 80px 24px;
+    position: relative;
+    z-index: 10;
+}
+.archive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.archive-card {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border: 1px solid #475569;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    min-height: 400px;
+}
+.archive-card.locked .unlocked-content { display: none; }
+.archive-card.unlocked .locked-overlay { display: none; }
+
+.locked-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(8px) grayscale(80%);
+    -webkit-backdrop-filter: blur(8px) grayscale(80%);
+}
+.archive-title-locked {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d1d5db;
+    margin-bottom: 16px;
+}
+.archive-cost {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fbbf24;
+    margin-bottom: 24px;
+}
+.btn-unlock {
+    background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-unlock:hover { transform: scale(1.05); }
+
+.unlocked-content img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.unlocked-content-text {
+    padding: 24px;
+}
+.archive-title-unlocked {
+    font-size: 22px;
+    font-weight: bold;
+    color: #60a5fa;
+    margin-bottom: 16px;
+}
+.archive-content-text {
+    color: #d1d5db;
+    line-height: 1.6;
+}
+.shake-score {
+    animation: shake 0.5s;
+}
+
+.mysterious-fragment-section {
+    padding: 60px 24px;
+    position: relative;
+    z-index: 10;
+}
+.fragment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.fragment-card {
+    background: #0f172a;
+    border: 1px dashed #475569;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.fragment-card.unlocked {
+    border-style: solid;
+    border-color: #06b6d4;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+.fragment-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+.fragment-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #9ca3af;
+}
+.fragment-card.unlocked .fragment-title {
+    color: #06b6d4;
+}
+.fragment-hint {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+}
+.fragment-card.unlocked .fragment-hint {
+    display: none;
+}
+.final-reveal-content {
+    text-align: center;
+}
+.final-reveal-image {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.final-reveal-subtitle {
+    font-size: 22px;
+    margin-bottom: 16px;
+    color: #fbbf24;
+}
+.final-reveal-content p {
+    color: #d1d5db;
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.toast {
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #10b981, #059669);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 2000;
+    font-weight: bold;
+    transition: bottom 0.5s ease-in-out;
+}
+.toast.show {
+    bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .fragment-grid {
+        grid-template-columns: 1fr;
+    }
+}

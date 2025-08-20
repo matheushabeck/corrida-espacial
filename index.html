@@ -16,7 +16,7 @@
 
         <header class="header">
             <div class="score-section">
-                <div class="score-item">
+                <div class="score-item" id="score-item">
                     <span class="star-icon">⭐</span>
                     <span id="score">0 pontos</span>
                 </div>
@@ -85,7 +85,7 @@
 
                 <div class="section-footer">
                     <button class="btn-primary" onclick="unlockTimeline()">
-                        Briefing Concluído →
+                        Resumo Concluído →
                     </button>
                 </div>
             </div>
@@ -106,23 +106,57 @@
                 <div class="challenges-section locked-section" id="challenges-section">
                     <h3 class="challenges-title">🎮 Testes de Aptidão (Bloqueado)</h3>
                     <div class="challenges-grid">
-                        <div class="challenge-card" onclick="startQuiz()">
+                        <div class="challenge-card">
                             <div class="challenge-icon">🧠</div>
                             <h4 class="challenge-title">Teste de Conhecimento</h4>
                             <p class="challenge-description">
-                                Prove seu conhecimento teórico respondendo 10 perguntas cruciais sobre a Corrida Espacial.
+                                Escolha a dificuldade e prove seu conhecimento sobre a Corrida Espacial.
                             </p>
-                            <button class="btn-quiz">Começar Teste</button>
+                            <div class="difficulty-buttons">
+                                <button class="btn-dificuldade btn-facil" onclick="startQuiz('facil')">Fácil (+50 pts)</button>
+                                <button class="btn-dificuldade btn-medio" onclick="startQuiz('medio')">Médio (+100 pts)</button>
+                                <button class="btn-dificuldade btn-dificil" onclick="startQuiz('dificil')">Difícil (+150 pts)</button>
+                            </div>
                         </div>
-                        <div class="challenge-card" onclick="startGame()">
+                        <div class="challenge-card">
                             <div class="challenge-icon">🚀</div>
                             <h4 class="challenge-title">Teste de Pilotagem</h4>
                             <p class="challenge-description">
-                                Assuma o controle de uma nave e sobreviva a uma chuva de satélites por 20 segundos para provar suas habilidades.
+                                Assuma o controle, escolha sua dificuldade e sobreviva à chuva de satélites para provar suas habilidades.
                             </p>
-                            <button class="btn-game">Iniciar Teste</button>
+                             <div class="difficulty-buttons">
+                                <button class="btn-dificuldade btn-facil" onclick="startGame('facil')">Fácil (+200 pts)</button>
+                                <button class="btn-dificuldade btn-medio" onclick="startGame('medio')">Médio (+300 pts)</button>
+                                <button class="btn-dificuldade btn-dificil" onclick="startGame('dificil')">Difícil (+400 pts)</button>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="archive-section locked-section" id="archive-section">
+            <div class="section-content">
+                <div class="section-header">
+                    <h2 class="section-title">🔓 Arquivo Espacial 🔓</h2>
+                    <p class="section-description">
+                        Use seus pontos para desbloquear arquivos secretos e expandir seu conhecimento sobre a Corrida Espacial.
+                    </p>
+                </div>
+                <div class="archive-grid" id="archive-grid">
+                </div>
+            </div>
+        </section>
+
+        <section class="mysterious-fragment-section" id="mysterious-fragment-section" style="display: none;">
+            <div class="section-content">
+                <div class="section-header">
+                    <h2 class="section-title">❓ Fragmentos Misteriosos ❓</h2>
+                    <p class="section-description">
+                        Você descobriu algo... partes de um arquivo confidencial. Domine todos os aspectos do seu treinamento para encontrar as peças que faltam e revelar a verdade.
+                    </p>
+                </div>
+                <div class="fragment-grid" id="fragment-grid">
                 </div>
             </div>
         </section>
@@ -142,13 +176,12 @@
         </footer>
     </div>
     
-    <!-- Modal do Quiz Principal -->
     <div class="modal" id="quiz-modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">🧠 Teste de Conhecimento</h3>
                 <div class="modal-info">
-                    <span id="quiz-progress">1 de 10</span>
+                    <span id="quiz-progress">1 de 5</span>
                     <button class="close-btn" onclick="closeQuiz()">✕</button>
                 </div>
             </div>
@@ -157,12 +190,10 @@
         </div>
     </div>
     
-    <!-- NOVO MODAL: Quiz da Linha do Tempo -->
     <div class="modal" id="timeline-quiz-modal">
         <div class="modal-content" id="timeline-quiz-content">
             <div class="modal-header">
                 <h3 class="modal-title">Verificação de Conhecimento</h3>
-                <!-- Não há botão de fechar para forçar a resposta -->
             </div>
             <div class="modal-body" id="timeline-quiz-body">
                 <div class="quiz-question" id="timeline-question-text"></div>
@@ -171,17 +202,35 @@
         </div>
     </div>
 
-    <!-- Modal do Jogo -->
     <div class="modal" id="game-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">🚀 Teste de Pilotagem</h3>
+                <h3 class="modal-title" id="game-modal-title">🚀 Teste de Pilotagem</h3>
                 <button class="close-btn" onclick="closeGame()">✕</button>
             </div>
             <div class="modal-body" id="game-body">
             </div>
         </div>
     </div>
+
+    <div class="modal" id="final-reveal-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">CLASSIFICADO: Missão Zarya</h3>
+                <button class="close-btn" onclick="closeFinalReveal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="final-reveal-content">
+                    <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple62/v4/22/78/00/22780078-1267-acbf-b49b-a2a6c73cb54d/pr_source.png/643x0w.jpg" alt="Missão Zarya" class="final-reveal-image">
+                    <h4 class="final-reveal-subtitle">O Segredo Além da Competição</h4>
+                    <p>Com o fim simbólico da Corrida Espacial em 1975, um segredo foi forjado. Longe dos olhos do público, os melhores cientistas dos EUA e da URSS iniciaram um projeto conjunto ultra-secreto: a Missão Zarya (Alvorecer).</p>
+                    <p>Seu objetivo não era a Lua ou um planeta, mas sim testar uma tecnologia de propulsão experimental baseada em teorias que poderiam, um dia, permitir viagens interestelares. O aperto de mãos no espaço foi apenas o começo. A verdadeira cooperação estava apenas começando, abrindo um novo alvorecer para a exploração humana do cosmos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
 
     <script src="script.js"></script>
 </body>
